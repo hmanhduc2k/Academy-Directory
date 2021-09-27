@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    -fx-background-color: derive(#76b5c5, 20%);
+    background-color: #76b5c5; /* Used in the default.html file */
 }
 
 .label {
@@ -257,7 +257,7 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #76b5c5;
 }
 
 .dialog-pane > *.button-bar > *.container {

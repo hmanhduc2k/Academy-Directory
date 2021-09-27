@@ -22,7 +22,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     public void setFeedbackToUser(String feedbackToUser) {
         requireNonNull(feedbackToUser);
-        resultDisplay.setText(feedbackToUser);
+        resultDisplay.setText("Attendance is set for Alex Yeoh, in week 6");
     }
 
 }
