@@ -45,6 +45,11 @@ public class StudentCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    public void viewFullInformation() {
+
+    }
+
     /**
      * Creates a {@code StudentCode} with the given {@code Student} and index to display.
      */
