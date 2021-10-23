@@ -30,7 +30,7 @@ public class ResultDisplay extends UiPart<Region> {
         requireNonNull(feedbackToUser);
         placeHolder.getChildren().clear();
         resultDisplay.setText(feedbackToUser);
-        if (feedbackToUser.contains("Invalid")) {
+        if (feedbackToUser.contains("Psyche")) {
             // TODO: If it's a view command, view everything.
             placeHolder.getChildren().add(new TextArea("Psyche"));
         } else {

@@ -3,6 +3,8 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+// later need to add linear-gradient and innershadow for aesthetic
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Open Sans Semibold";
