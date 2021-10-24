@@ -16,14 +16,15 @@ import seedu.academydirectory.logic.commands.DeleteCommand;
 import seedu.academydirectory.logic.commands.EditCommand;
 import seedu.academydirectory.logic.commands.ExitCommand;
 import seedu.academydirectory.logic.commands.FindCommand;
+import seedu.academydirectory.logic.commands.GetCommand;
 import seedu.academydirectory.logic.commands.GradeCommand;
 import seedu.academydirectory.logic.commands.HelpCommand;
 import seedu.academydirectory.logic.commands.ListCommand;
 import seedu.academydirectory.logic.commands.ParticipationCommand;
-import seedu.academydirectory.logic.commands.RetrieveCommand;
 import seedu.academydirectory.logic.commands.ShowCommand;
 import seedu.academydirectory.logic.commands.SortCommand;
 import seedu.academydirectory.logic.commands.ViewCommand;
+import seedu.academydirectory.logic.commands.TagCommand;
 import seedu.academydirectory.logic.parser.exceptions.ParseException;
 
 /**
@@ -73,7 +74,7 @@ public class AcademyDirectoryParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case RetrieveCommand.COMMAND_WORD:
+        case GetCommand.COMMAND_WORD:
             return new RetrieveCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
@@ -93,6 +94,9 @@ public class AcademyDirectoryParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

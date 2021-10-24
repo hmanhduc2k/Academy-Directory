@@ -9,7 +9,8 @@ import static seedu.academydirectory.testutil.TypicalIndexes.INDEX_FIRST_STUDENT
 import static seedu.academydirectory.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static seedu.academydirectory.testutil.TypicalStudents.getTypicalAcademyDirectory;
 
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,58 +20,57 @@ import seedu.academydirectory.model.AcademyDirectory;
 import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
-import seedu.academydirectory.model.student.Assessment;
 import seedu.academydirectory.model.student.Student;
+import seedu.academydirectory.model.tag.Tag;
 import seedu.academydirectory.testutil.StudentBuilder;
-import seedu.academydirectory.testutil.TypicalStudents;
 
-class GradeCommandTest {
+class TagCommandTest {
 
-    private Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
-    private final HashMap<String, Integer> assessmentHashMap = new Assessment().getAssessmentHashMap();
-    private final String validAssessmentName1 = "RA1";
-    private final String validAssessmentName2 = "MIDTERM";
-    private final Integer validGrade1 = 10;
-    private final Integer validGrade2 = 20;
+    private final Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private final Set<Tag> tagSet = new HashSet<>();
+    private final String validTagName1 = "mission";
+    private final String validTagName2 = "streams2";
 
     @Test
     public void constructor_nullStudent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new GradeCommand(null, null, null));
+        assertThrows(NullPointerException.class, () -> new TagCommand(null, null));
     }
 
     @Test
-    void execute_addGrade_success() {
+    void execute_addTag_success() {
         Student firstStudent = model.getFilteredStudentList().get(0);
-        assessmentHashMap.replace(validAssessmentName1, validGrade1);
-        Student editedStudent = new StudentBuilder(firstStudent).withAssessment(assessmentHashMap).build();
-        GradeCommand addGradeCommand =
-                new GradeCommand(INDEX_FIRST_STUDENT, validAssessmentName1, validGrade1);
+
+        Student editedStudent = new StudentBuilder(firstStudent).withTags().build();
+        TagCommand addTagCommand =
+                new TagCommand(INDEX_FIRST_STUDENT, tagSet);
         String expectedMessage =
-                String.format(GradeCommand.MESSAGE_SUCCESS, editedStudent.getName(), validAssessmentName1);
+                String.format(TagCommand.MESSAGE_SUCCESS, editedStudent.getName());
         Model expectedModel = new ModelManager(new AcademyDirectory(model.getAcademyDirectory()), new UserPrefs());
         expectedModel.setStudent(firstStudent, editedStudent);
-        assertCommandSuccess(addGradeCommand, model, expectedMessage, expectedModel);
-
-        // reset model
-        TypicalStudents.getTypicalAcademyDirectory().getStudentList().get(0).setAssessment(new Assessment());
+        assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
-        GradeCommand gradeCommand = new GradeCommand(outOfBoundIndex, validAssessmentName1, validGrade1);
+        TagCommand tagCommand = new TagCommand(outOfBoundIndex, tagSet);
 
-        assertCommandFailure(gradeCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final GradeCommand standardCommand =
-                new GradeCommand(INDEX_FIRST_STUDENT, validAssessmentName1, validGrade1);
+        Set<Tag> tagSet1 = new HashSet<>();
+        Set<Tag> tagSet2 = new HashSet<>();
+        tagSet1.add(new Tag(validTagName1));
+        tagSet2.add(new Tag(validTagName2));
+
+        final TagCommand standardCommand =
+                new TagCommand(INDEX_FIRST_STUDENT, tagSet1);
 
         // same values -> returns true
-        GradeCommand commandWithSameValues =
-                new GradeCommand(INDEX_FIRST_STUDENT, validAssessmentName1, validGrade1);
+        TagCommand commandWithSameValues =
+                new TagCommand(INDEX_FIRST_STUDENT, tagSet1);
         assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
@@ -83,13 +83,9 @@ class GradeCommandTest {
         assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> returns false
-        assertNotEquals(standardCommand, new GradeCommand(INDEX_SECOND_STUDENT, validAssessmentName1, validGrade1));
-
-        // different assessment -> returns false
-        assertNotEquals(standardCommand, new GradeCommand(INDEX_FIRST_STUDENT, validAssessmentName2, validGrade1));
+        assertNotEquals(standardCommand, new TagCommand(INDEX_SECOND_STUDENT, tagSet1));
 
         // different grade -> returns false
-        assertNotEquals(standardCommand, new GradeCommand(INDEX_FIRST_STUDENT, validAssessmentName1, validGrade2));
+        assertNotEquals(standardCommand, new TagCommand(INDEX_FIRST_STUDENT, tagSet2));
     }
-
 }
