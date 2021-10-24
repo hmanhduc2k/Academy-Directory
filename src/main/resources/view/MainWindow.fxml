@@ -40,11 +40,18 @@
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
           <StackPane fx:id="studentListPanelPlaceholder" HBox.hgrow="ALWAYS" minWidth="360"/>
-          <StackPane HBox.hgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
+          <VBox HBox.hgrow="ALWAYS">
+            <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" maxHeight="150">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+            <StackPane VBox.vgrow="ALWAYS" fx:id="visualizer" styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+          </VBox>
         </HBox>
 
         <StackPane VBox.vgrow="NEVER" styleClass="pane-with-border" prefHeight="20">

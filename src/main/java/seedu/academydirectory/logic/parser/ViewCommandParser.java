@@ -8,6 +8,7 @@ import seedu.academydirectory.logic.commands.ViewCommand;
 import seedu.academydirectory.logic.parser.exceptions.ParseException;
 
 public class ViewCommandParser implements Parser<ViewCommand> {
+
     @Override
     public ViewCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);

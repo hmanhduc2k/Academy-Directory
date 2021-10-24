@@ -22,7 +22,15 @@ public class StudentFullInformation extends UiPart<Region> {
     @FXML
     private Label telegram;
 
-
+    /**
+     * Information to be added later:
+     * Student name on the top
+     * Assessment, participation, and other things as a drop down
+     * Personal information on the bottom, in form of a list
+     * To be incorporated with view command
+     * @param student Student to be viewed
+     * @param displayedIndex  index of the student
+     */
     public StudentFullInformation(Student student, int displayedIndex) {
         super(FXML);
         this.student = student;
@@ -31,11 +39,4 @@ public class StudentFullInformation extends UiPart<Region> {
         email.setText(student.getEmail().value);
         telegram.setText(student.getTelegram().value);
     }
-    /**
-     * Information to be added later:
-     * Student name on the top
-     * Assessment, participation, and other things as a drop down
-     * Personal information on the bottom, in form of a list
-     * To be incorporated with view command
-     */
 }

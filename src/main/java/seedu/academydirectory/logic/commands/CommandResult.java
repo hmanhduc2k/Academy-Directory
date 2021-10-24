@@ -3,67 +3,64 @@ package seedu.academydirectory.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
-    private static final String DEFAULT_HELP = "### None";
 
+    /** Type of command that needs special treatment from UI */
+    public enum Type {
+        DEFAULT, HELP, VIEW, EXIT, STATISTIC
+    }
+
+    /** Feedback to be sent to user on the result display*/
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    /** Additional Information to be displayed, to change to AdditionalInformation */
+    private final Optional additionalInformation;
 
-    /** The application should exit. */
-    private final boolean exit;
+    /** Type of command */
+    private final Type type;
 
-    /** What the message on the help window should be. */
-    private final String helpContent;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, Optional additionalInformation, Type type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.helpContent = DEFAULT_HELP;
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this.additionalInformation = additionalInformation;
+        this.type = type;
     }
 
     /**
-     * Alternative constructor of CommandResult, creating a {@code CommandResult}, this time taking
-     * another help message in.
-     */
-    public CommandResult(String feedbackToUser, String helpContent) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.helpContent = requireNonNull(helpContent);
-        this.showHelp = true;
-        this.exit = false;
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * Constructs a {@code CommandResult} that is default only concerning feedback to users
+     * @param feedbackToUser
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, Optional.empty(), Type.DEFAULT);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
+
     public boolean isShowHelp() {
-        return showHelp;
+        return (type.equals(Type.HELP));
     }
 
     public boolean isExit() {
-        return exit;
+        return (type.equals(Type.EXIT));
     }
 
-    public String getHelpContent() {
-        return this.helpContent;
+    public boolean isView() {
+        return (type.equals(Type.VIEW));
+    }
+
+    public Optional getAdditionalInformation() {
+        return this.additionalInformation;
     }
 
     @Override
@@ -79,13 +76,12 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && helpContent.equals(otherCommandResult.helpContent)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && additionalInformation.equals(otherCommandResult.additionalInformation)
+                && type.equals(otherCommandResult.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, additionalInformation, type);
     }
 }

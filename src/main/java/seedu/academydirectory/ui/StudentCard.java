@@ -1,12 +1,15 @@
 package seedu.academydirectory.ui;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.academydirectory.commons.core.LogsCenter;
 import seedu.academydirectory.model.student.Student;
 
 /**
@@ -15,6 +18,7 @@ import seedu.academydirectory.model.student.Student;
 public class StudentCard extends UiPart<Region> {
 
     private static final String FXML = "StudentListCard.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -23,11 +27,12 @@ public class StudentCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AcademyDirectory level 4</a>
      */
-
-    public final Student student;
+    private final Student student;
 
     @FXML
     private HBox cardPane;
+    @FXML
+    private VBox container;
     @FXML
     private Label name;
     @FXML
@@ -45,13 +50,12 @@ public class StudentCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    @FXML
-    public void viewFullInformation() {
-
-    }
+    private Label temp;
 
     /**
      * Creates a {@code StudentCode} with the given {@code Student} and index to display.
+     * @param student student to be displayed
+     * @param displayedIndex index of the student
      */
     public StudentCard(Student student, int displayedIndex) {
         super(FXML);
@@ -66,6 +70,7 @@ public class StudentCard extends UiPart<Region> {
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        temp = new Label("Clicked");
     }
 
     @Override
@@ -84,5 +89,16 @@ public class StudentCard extends UiPart<Region> {
         StudentCard card = (StudentCard) other;
         return id.getText().equals(card.id.getText())
                 && student.equals(card.student);
+    }
+
+    /**
+     * View full information of the student in mention
+     */
+    @FXML
+    public void viewFullInformation() {
+        logger.info("Item selected");
+        container.getChildren().remove(temp);
+        temp.setText("Clicked");
+        container.getChildren().add(temp);
     }
 }

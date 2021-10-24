@@ -3,6 +3,8 @@ package seedu.academydirectory.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.academydirectory.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Optional;
+
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
 import seedu.academydirectory.model.Model;
@@ -51,10 +53,11 @@ public class HelpCommand extends Command {
             throw new CommandException(Messages.MESSAGE_HELP_NOT_EXIST);
         }
         if (isGeneralHelp) {
-            return new CommandResult(MESSAGE_HELP_SUCCESS_GENERAL, this.helpMessage);
+            return new CommandResult(MESSAGE_HELP_SUCCESS_GENERAL,
+                    Optional.of(helpMessage), CommandResult.Type.HELP);
         } else {
             return new CommandResult(String.format(MESSAGE_HELP_SUCCESS_SPECIFIC, this.commandWord),
-                    this.helpMessage);
+                    Optional.of(helpMessage), CommandResult.Type.HELP);
         }
     }
 

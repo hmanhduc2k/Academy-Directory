@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.academydirectory.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.academydirectory.model.Model;
@@ -30,17 +32,17 @@ public class HelpCommandTest {
     public void execute_valid_help() {
         HelpCommand helpCommand1 = new HelpCommand();
         CommandResult commandResult1 = new CommandResult(HelpCommand.MESSAGE_HELP_SUCCESS_GENERAL,
-                HelpCommand.DEFAULT_MESSAGE);
+                Optional.of(HelpCommand.DEFAULT_MESSAGE), CommandResult.Type.HELP);
         assertCommandSuccess(helpCommand1, model, commandResult1, model);
 
         HelpCommand helpCommand2 = new HelpCommand("grade", GradeCommand.HELP_MESSAGE);
         CommandResult commandResult2 = new CommandResult(String.format(HelpCommand.MESSAGE_HELP_SUCCESS_SPECIFIC,
-                "grade"), GradeCommand.HELP_MESSAGE);
+                "grade"), Optional.of(GradeCommand.HELP_MESSAGE), CommandResult.Type.HELP);
         assertCommandSuccess(helpCommand2, model, commandResult2, model);
 
         HelpCommand helpCommand3 = new HelpCommand("exit", ExitCommand.HELP_MESSAGE);
         CommandResult commandResult3 = new CommandResult(String.format(HelpCommand.MESSAGE_HELP_SUCCESS_SPECIFIC,
-                "exit"), ExitCommand.HELP_MESSAGE);
+                "exit"), Optional.of(ExitCommand.HELP_MESSAGE), CommandResult.Type.HELP);
         assertCommandSuccess(helpCommand3, model, commandResult3, model);
     }
 }

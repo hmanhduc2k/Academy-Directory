@@ -49,6 +49,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane visualizer;
+
+    @FXML
     private StackPane statusbarPlaceholder;
 
     /**
@@ -188,13 +191,18 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                showHelpFrom(commandResult.getHelpContent());
+            if (commandResult.getAdditionalInformation().isPresent()) {
+                if (commandResult.isShowHelp()) {
+                    String helpMessage = (String) commandResult
+                            .getAdditionalInformation()
+                            .get();
+                    showHelpFrom(helpMessage);
+                }
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {
