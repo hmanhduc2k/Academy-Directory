@@ -23,8 +23,8 @@ import seedu.academydirectory.logic.commands.ListCommand;
 import seedu.academydirectory.logic.commands.ParticipationCommand;
 import seedu.academydirectory.logic.commands.ShowCommand;
 import seedu.academydirectory.logic.commands.SortCommand;
-import seedu.academydirectory.logic.commands.ViewCommand;
 import seedu.academydirectory.logic.commands.TagCommand;
+import seedu.academydirectory.logic.commands.ViewCommand;
 import seedu.academydirectory.logic.parser.exceptions.ParseException;
 
 /**
