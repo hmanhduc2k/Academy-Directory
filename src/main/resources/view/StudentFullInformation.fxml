@@ -3,9 +3,51 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TitledPane?>
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1">
     <VBox>
 <!--        Information to be added later on: -->
+<!--        Header title indicating student name-->
+        <HBox spacing="10" alignment="CENTER">
+            <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+        </HBox>
+
+<!--        <VBox spacing="10" alignment="BOTTOM_LEFT">-->
+<!--            <Label styleClass="cell_small_label" text="Studio Participation:">-->
+<!--                <font>-->
+<!--                    <Font size="14.5"/>-->
+<!--                </font>-->
+<!--            </Label>-->
+<!--            <TitledPane>-->
+<!--&lt;!&ndash;                Studio participation&ndash;&gt;-->
+<!--            </TitledPane>-->
+<!--        </VBox>-->
+
+<!--        <VBox spacing="10" alignment="BOTTOM_LEFT">-->
+<!--            <Label styleClass="cell_small_label" text="Studio Participation:">-->
+<!--                <font>-->
+<!--                    <Font size="14.5"/>-->
+<!--                </font>-->
+<!--            </Label>-->
+<!--            <TitledPane>-->
+<!--&lt;!&ndash;                Test score&ndash;&gt;-->
+<!--            </TitledPane>-->
+<!--        </VBox>-->
+
+        <HBox spacing="10" alignment="BOTTOM_LEFT">
+            <Label styleClass="cell_small_label" text="Contact information:">
+                <font>
+                    <Font size="14.5"/>
+                </font>
+            </Label>
+            <Label fx:id="phone" styleClass="cell_small_label" text="Phone number: \$phone" />
+            <Label fx:id="email" styleClass="cell_small_label" text="Email: \$email" />
+            <Label fx:id="telegram" styleClass="cell_small_label" text="Telegram handle: \$telegram" />
+        </HBox>
+
     </VBox>
 </StackPane>
