@@ -29,16 +29,6 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, Optional<? extends Object> additionalInformation, Type type) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.additionalInformation = additionalInformation;
-        this.type = type;
-        this.commitMessage = Optional.empty();
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     */
     public CommandResult(String feedbackToUser, Optional<? extends Object> additionalInformation,
                          Optional<String> commitMessage, Type type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -48,11 +38,18 @@ public class CommandResult {
     }
 
     /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, Optional<? extends Object> additionalInformation, Type type) {
+        this(requireNonNull(feedbackToUser), additionalInformation, Optional.empty(), type);
+    }
+
+    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, Optional.empty(), Type.DEFAULT);
+        this(feedbackToUser, Optional.empty(), Optional.empty(), Type.DEFAULT);
     }
 
     /**
@@ -99,13 +96,11 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && additionalInformation.equals(otherCommandResult.additionalInformation)
-                && type.equals(otherCommandResult.type);
+        return feedbackToUser.equals(otherCommandResult.feedbackToUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, additionalInformation, type);
+        return Objects.hash(feedbackToUser, additionalInformation, type, commitMessage);
     }
 }

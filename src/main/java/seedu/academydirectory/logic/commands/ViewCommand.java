@@ -8,7 +8,6 @@ import java.util.Optional;
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 

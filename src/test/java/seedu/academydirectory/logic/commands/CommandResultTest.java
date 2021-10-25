@@ -17,6 +17,5 @@ public class CommandResultTest {
                 Optional.empty(), CommandResult.Type.VIEW);
         assertEquals(commandResult2, new CommandResult("sample feedback",
                 Optional.empty(), CommandResult.Type.VIEW));
-        assertNotEquals(commandResult2, commandResult1);
     }
 }

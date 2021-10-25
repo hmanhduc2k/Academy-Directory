@@ -1,7 +1,5 @@
 package seedu.academydirectory.ui;
 
-import java.net.URL;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.Region;

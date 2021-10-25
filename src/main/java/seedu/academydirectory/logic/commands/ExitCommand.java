@@ -2,7 +2,6 @@ package seedu.academydirectory.logic.commands;
 
 import java.util.Optional;
 
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.VersionedModel;
 
 /**

@@ -14,13 +14,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 
 public class ViewCommandTest {
-    private final Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private final VersionedModel model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
 
     @Test
     public void valid_view_command() {
