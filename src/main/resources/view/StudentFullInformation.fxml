@@ -38,16 +38,16 @@
 <!--            </TitledPane>-->
 <!--        </VBox>-->
 
-        <HBox spacing="10" alignment="BOTTOM_LEFT">
-            <Label styleClass="cell_small_label" text="Contact information:">
+        <VBox spacing="10" alignment="BOTTOM_LEFT">
+            <Label VBox.vgrow="ALWAYS" styleClass="cell_small_label" text="Contact information:">
                 <font>
                     <Font size="14.5"/>
                 </font>
             </Label>
-            <Label fx:id="phone" styleClass="cell_small_label" text="Phone number: \$phone" />
-            <Label fx:id="email" styleClass="cell_small_label" text="Email: \$email" />
-            <Label fx:id="telegram" styleClass="cell_small_label" text="Telegram handle: \$telegram" />
-        </HBox>
+            <Label VBox.vgrow="ALWAYS" fx:id="phone" styleClass="cell_small_label" text="Phone number: \$phone" />
+            <Label VBox.vgrow="ALWAYS" fx:id="email" styleClass="cell_small_label" text="Email: \$email" />
+            <Label VBox.vgrow="ALWAYS" fx:id="telegram" styleClass="cell_small_label" text="Telegram handle: \$telegram" />
+        </VBox>
 
     </VBox>
 </StackPane>

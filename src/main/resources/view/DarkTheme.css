@@ -133,12 +133,12 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#95A6E7, 20%);
+     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#95A6E7, 20%);
-     -fx-border-color: derive(#95A6E7, 10%);
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
@@ -193,13 +193,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#95A6E7, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Ariel";
-    -fx-text-fill: black;
+    -fx-font-family: "Open Sans Light";
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
 

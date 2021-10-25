@@ -41,12 +41,12 @@
           </padding>
           <StackPane fx:id="studentListPanelPlaceholder" HBox.hgrow="ALWAYS" minWidth="360"/>
           <VBox HBox.hgrow="ALWAYS">
-            <StackPane VBox.vgrow="ALWAYS" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" maxHeight="150">
+            <StackPane VBox.vgrow="ALWAYS" fx:id="feedbackDisplay" styleClass="pane-with-border" maxHeight="150">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
-            <StackPane VBox.vgrow="ALWAYS" fx:id="visualizer" styleClass="pane-with-border">
+            <StackPane VBox.vgrow="ALWAYS" fx:id="visualizerDisplay" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>

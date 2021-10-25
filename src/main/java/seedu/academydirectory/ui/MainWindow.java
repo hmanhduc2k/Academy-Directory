@@ -46,10 +46,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane studentListPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane feedbackDisplay;
 
     @FXML
-    private StackPane visualizer;
+    private StackPane visualizerDisplay;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -118,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        feedbackDisplay.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAcademyDirectoryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());

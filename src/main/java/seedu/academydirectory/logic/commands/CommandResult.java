@@ -19,7 +19,7 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Additional Information to be displayed, to change to AdditionalInformation */
-    private final Optional additionalInformation;
+    private final Optional<? extends Object> additionalInformation;
 
     /** Type of command */
     private final Type type;
@@ -28,7 +28,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, Optional additionalInformation, Type type) {
+    public CommandResult(String feedbackToUser, Optional<? extends Object> additionalInformation, Type type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.additionalInformation = additionalInformation;
         this.type = type;
@@ -45,7 +45,6 @@ public class CommandResult {
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
-
 
     public boolean isShowHelp() {
         return (type.equals(Type.HELP));

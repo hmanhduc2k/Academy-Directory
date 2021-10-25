@@ -20,8 +20,6 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private StackPane placeHolder;
 
-    private boolean isView;
-
     public ResultDisplay() {
         super(FXML);
     }

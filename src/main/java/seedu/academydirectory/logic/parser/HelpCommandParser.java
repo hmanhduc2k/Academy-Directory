@@ -60,9 +60,6 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case ExitCommand.COMMAND_WORD:
             return new HelpCommand(userInput, ExitCommand.HELP_MESSAGE);
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
         default:
             throw new ParseException(String.format(MESSAGE_HELP_NOT_EXIST, userInput));
         }
