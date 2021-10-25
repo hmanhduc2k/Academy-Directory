@@ -9,11 +9,9 @@ import java.util.Optional;
  * Represents the result of a command execution.
  */
 public class CommandResult {
-    private static final String DEFAULT_HELP = "### None";
-
     /** Type of command that needs special treatment from UI */
     public enum Type {
-        DEFAULT, HELP, VIEW, EXIT, STATISTIC
+        DEFAULT, HELP, VIEW, EXIT, STATISTIC, REVERT
     }
 
     /** Feedback to be sent to user on the result display*/
@@ -25,9 +23,6 @@ public class CommandResult {
     /** Type of command */
     private final Type type;
 
-    /** What the message on the help window should be. */
-    private final String helpContent;
-
     /** What commit message should be used, if any */
     private final Optional<String> commitMessage;
 
@@ -38,44 +33,18 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.additionalInformation = additionalInformation;
         this.type = type;
-        this.helpContent = DEFAULT_HELP;
-        this.showHelp = showHelp;
-        this.exit = exit;
         this.commitMessage = Optional.empty();
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Optional<String> commitMessage) {
+    public CommandResult(String feedbackToUser, Optional<? extends Object> additionalInformation,
+                         Optional<String> commitMessage, Type type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.helpContent = DEFAULT_HELP;
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this.additionalInformation = additionalInformation;
         this.commitMessage = commitMessage;
-    }
-
-    /**
-     * Alternative constructor of CommandResult, creating a {@code CommandResult}, this time taking
-     * another help message in.
-     */
-    public CommandResult(String feedbackToUser, String helpContent) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.helpContent = requireNonNull(helpContent);
-        this.showHelp = true;
-        this.exit = false;
-        this.commitMessage = Optional.empty();
-    }
-
-    /**
-     * Alternative constructor of CommandResult with commitMessage support
-     */
-    public CommandResult(String feedbackToUser, String helpContent, Optional<String> commitMessage) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.helpContent = requireNonNull(helpContent);
-        this.showHelp = true;
-        this.exit = false;
-        this.commitMessage = commitMessage;
+        this.type = type;
     }
 
     /**
@@ -91,7 +60,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, Optional<String> commitMessage) {
-        this(feedbackToUser, false, false, commitMessage);
+        this(feedbackToUser, Optional.empty(), commitMessage, Type.REVERT);
     }
 
     public String getFeedbackToUser() {
@@ -110,12 +79,10 @@ public class CommandResult {
         return (type.equals(Type.VIEW));
     }
 
-    public String getHelpContent() {
-        return helpContent;
-    }
-
     public Optional<String> getCommitMessage() {
         return commitMessage;
+    }
+
     public Optional getAdditionalInformation() {
         return this.additionalInformation;
     }

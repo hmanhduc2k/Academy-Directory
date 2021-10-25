@@ -68,6 +68,6 @@ public class RevertCommand extends Command {
         }
 
         model.setAcademyDirectory(initialData);
-        return new CommandResult(REVERT_SUCCESSFUL_ACKNOWLEDGEMENT, false, false);
+        return new CommandResult(REVERT_SUCCESSFUL_ACKNOWLEDGEMENT);
     }
 }

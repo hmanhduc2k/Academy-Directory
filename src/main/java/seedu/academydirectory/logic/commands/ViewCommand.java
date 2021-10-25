@@ -9,6 +9,7 @@ import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
 import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 
 public class ViewCommand extends Command {
@@ -38,7 +39,7 @@ public class ViewCommand extends Command {
      * @throws CommandException when index is not valid
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(VersionedModel model) throws CommandException {
         requireNonNull(model);
         List<Student> studentList = model.getFilteredStudentList();
         if (index.getZeroBased() >= studentList.size()) {
