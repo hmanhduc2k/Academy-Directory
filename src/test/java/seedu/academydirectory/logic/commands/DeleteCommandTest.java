@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 
 /**
@@ -24,7 +24,7 @@ import seedu.academydirectory.model.student.Student;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private VersionedModel model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
-        Model expectedModel = new ModelManager(model.getAcademyDirectory(), new UserPrefs());
+        VersionedModel expectedModel = new ModelManager(model.getAcademyDirectory(), new UserPrefs());
         expectedModel.deleteStudent(studentToDelete);
         showNoStudent(expectedModel);
 
@@ -101,7 +101,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoStudent(Model model) {
+    private void showNoStudent(VersionedModel model) {
         model.updateFilteredStudentList(p -> false);
 
         assertTrue(model.getFilteredStudentList().isEmpty());

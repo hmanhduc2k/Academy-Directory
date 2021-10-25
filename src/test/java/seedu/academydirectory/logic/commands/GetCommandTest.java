@@ -18,9 +18,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.logic.parser.Prefix;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Information;
 import seedu.academydirectory.model.student.InformationWantedFunction;
 import seedu.academydirectory.model.student.Name;
@@ -29,8 +29,8 @@ import seedu.academydirectory.model.student.Name;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class GetCommandTest {
-    private final Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private final VersionedModel model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private final VersionedModel expectedModel = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -73,7 +73,7 @@ public class GetCommandTest {
         ;
     }
 
-    private void execute_singlePrefix(Prefix prefix, Model model, Name name) {
+    private void execute_singlePrefix(Prefix prefix, VersionedModel model, Name name) {
         InformationWantedFunction function = new InformationWantedFunction(prefix, name);
 
         ObservableList<Information> expectedResponse = model.getAcademyDirectory()
@@ -100,7 +100,7 @@ public class GetCommandTest {
 
     @Test
     public void execute_singlePrefixEmptyModel() {
-        Model emptyModel = new ModelManager();
+        VersionedModel emptyModel = new ModelManager();
         String expectedMessage = String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW, 0);
 
         InformationWantedFunction.SUPPORTED_PREFIX.forEach(prefix -> {

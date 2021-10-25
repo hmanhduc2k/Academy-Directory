@@ -8,17 +8,17 @@ import static seedu.academydirectory.testutil.TypicalStudents.getTypicalAcademyD
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
 public class ListCommandTest {
 
-    private Model model;
-    private Model expectedModel;
+    private VersionedModel model;
+    private VersionedModel expectedModel;
 
     @BeforeEach
     public void setUp() {

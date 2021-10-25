@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.academydirectory.testutil.Assert.assertThrows;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +19,13 @@ import javafx.collections.ObservableList;
 import seedu.academydirectory.commons.core.GuiSettings;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
 import seedu.academydirectory.model.AcademyDirectory;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ReadOnlyAcademyDirectory;
 import seedu.academydirectory.model.ReadOnlyUserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 import seedu.academydirectory.testutil.StudentBuilder;
+import seedu.academydirectory.versioncontrol.objects.Commit;
+import seedu.academydirectory.versioncontrol.objects.StageArea;
 
 public class AddCommandTest {
 
@@ -78,7 +81,7 @@ public class AddCommandTest {
     /**
      * A default model stub that have all of the methods failing.
      */
-    private class ModelStub implements Model {
+    private class ModelStub implements VersionedModel {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -153,6 +156,31 @@ public class AddCommandTest {
         public <T> ObservableList<T> getFilteredStudentListView(Function<? super Student, ? extends T> function) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commit(String message) {
+        }
+
+        @Override
+        public Commit revert(String fiveCharHash) throws IOException {
+            return Commit.NULL;
+        }
+
+        @Override
+        public StageArea getStageArea() {
+            return new StageArea();
+        }
+
+        @Override
+        public Commit getHeadCommit() {
+            return null;
+        }
+
+        @Override
+        public Commit fetchCommitByLabel(String labelName) {
+            return null;
+        }
+
     }
 
     /**

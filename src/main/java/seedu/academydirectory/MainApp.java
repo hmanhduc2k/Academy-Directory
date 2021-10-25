@@ -16,11 +16,11 @@ import seedu.academydirectory.commons.util.StringUtil;
 import seedu.academydirectory.logic.Logic;
 import seedu.academydirectory.logic.LogicManager;
 import seedu.academydirectory.model.AcademyDirectory;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.ReadOnlyAcademyDirectory;
 import seedu.academydirectory.model.ReadOnlyUserPrefs;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.util.SampleDataUtil;
 import seedu.academydirectory.storage.AcademyDirectoryStorage;
 import seedu.academydirectory.storage.JsonAcademyDirectoryStorage;
@@ -43,7 +43,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected Model model;
+    protected VersionedModel model;
     protected Config config;
 
     @Override
@@ -58,11 +58,12 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AcademyDirectoryStorage academyDirectoryStorage =
                 new JsonAcademyDirectoryStorage(userPrefs.getAcademyDirectoryFilePath());
-        storage = new StorageManager(academyDirectoryStorage, userPrefsStorage);
+        storage = new StorageManager(academyDirectoryStorage, userPrefsStorage, userPrefs.getVersionControlPath());
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+        storage.saveStageArea(model.getStageArea());
 
         logic = new LogicManager(model, storage);
 
@@ -75,12 +76,12 @@ public class MainApp extends Application {
      * is not found, or an empty academy directory will be used instead if errors occur when reading {@code storage}'s
      * academy directory.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private VersionedModel initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAcademyDirectory> academyDirectoryOptional;
         ReadOnlyAcademyDirectory initialData;
         try {
             academyDirectoryOptional = storage.readAcademyDirectory();
-            if (!academyDirectoryOptional.isPresent()) {
+            if (academyDirectoryOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AcademyDirectory");
             }
             initialData = academyDirectoryOptional.orElseGet(SampleDataUtil::getSampleAcademyDirectory);
@@ -91,7 +92,11 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AcademyDirectory");
             initialData = new AcademyDirectory();
         }
-
+        try {
+            storage.saveAcademyDirectory(initialData);
+        } catch (IOException e) {
+            logger.warning("Unable to save to disk. Will not be able to revert properly..");
+        }
         return new ModelManager(initialData, userPrefs);
     }
 
@@ -148,6 +153,7 @@ public class MainApp extends Application {
         try {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
+            logger.info(String.valueOf(initializedPrefs.getVersionControlPath()));
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                     + "Using default user prefs");

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
 import seedu.academydirectory.model.AcademyDirectory;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Assessment;
 import seedu.academydirectory.model.student.Student;
 import seedu.academydirectory.testutil.StudentBuilder;
@@ -26,7 +26,7 @@ import seedu.academydirectory.testutil.TypicalStudents;
 
 class GradeCommandTest {
 
-    private Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private VersionedModel model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
     private final HashMap<String, Integer> assessmentHashMap = new Assessment().getAssessmentHashMap();
     private final String validAssessmentName1 = "RA1";
     private final String validAssessmentName2 = "MIDTERM";
@@ -47,7 +47,8 @@ class GradeCommandTest {
                 new GradeCommand(INDEX_FIRST_STUDENT, validAssessmentName1, validGrade1);
         String expectedMessage =
                 String.format(GradeCommand.MESSAGE_SUCCESS, editedStudent.getName(), validAssessmentName1);
-        Model expectedModel = new ModelManager(new AcademyDirectory(model.getAcademyDirectory()), new UserPrefs());
+        VersionedModel expectedModel = new ModelManager(
+                new AcademyDirectory(model.getAcademyDirectory()), new UserPrefs());
         expectedModel.setStudent(firstStudent, editedStudent);
         assertCommandSuccess(addGradeCommand, model, expectedMessage, expectedModel);
 

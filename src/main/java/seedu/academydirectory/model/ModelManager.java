@@ -3,6 +3,7 @@ package seedu.academydirectory.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.academydirectory.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,16 +16,21 @@ import javafx.collections.transformation.FilteredList;
 import seedu.academydirectory.commons.core.GuiSettings;
 import seedu.academydirectory.commons.core.LogsCenter;
 import seedu.academydirectory.model.student.Student;
+import seedu.academydirectory.versioncontrol.objects.Commit;
+import seedu.academydirectory.versioncontrol.objects.StageArea;
+import seedu.academydirectory.versioncontrol.utils.HashMethod;
 
 /**
  * Represents the in-memory model of the academy directory data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements VersionedModel {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AcademyDirectory academyDirectory;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
+
+    private final VersionControl versionControl;
 
     /**
      * Initializes a ModelManager with the given academyDirectory and userPrefs.
@@ -38,6 +44,10 @@ public class ModelManager implements Model {
         this.academyDirectory = new AcademyDirectory(academyDirectory);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.academyDirectory.getStudentList());
+
+        this.versionControl = new VersionControl(HashMethod.SHA1,
+                userPrefs.getVersionControlPath(),
+                userPrefs.getAcademyDirectoryFilePath());
     }
 
     public ModelManager() {
@@ -160,4 +170,33 @@ public class ModelManager implements Model {
                 && filteredStudents.equals(other.filteredStudents);
     }
 
+    //=========== Version Methods =========================================================================
+
+    /**
+     * Commits a particular command
+     * @param message Message attached to the Commit for a readable explanation
+     */
+    @Override
+    public void commit(String message) {
+        versionControl.commit(message);
+    }
+
+    @Override
+    public Commit revert(String fiveCharHash) throws IOException {
+        return versionControl.revert(fiveCharHash);
+    }
+
+    @Override
+    public StageArea getStageArea() {
+        return versionControl.getStageArea();
+    }
+
+    @Override
+    public Commit getHeadCommit() {
+        return versionControl.getHeadCommit();
+    }
+
+    public Commit fetchCommitByLabel(String labelName) {
+        return versionControl.fetchCommitByLabel(labelName);
+    }
 }

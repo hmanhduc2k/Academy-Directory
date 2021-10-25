@@ -3,7 +3,7 @@ package seedu.academydirectory.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.academydirectory.commons.core.Messages;
-import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.NameContainsKeywordsPredicate;
 
 /**
@@ -43,7 +43,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(VersionedModel model) {
         requireNonNull(model);
         model.updateFilteredStudentList(predicate);
         return new CommandResult(

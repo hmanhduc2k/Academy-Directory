@@ -3,7 +3,7 @@ package seedu.academydirectory.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.academydirectory.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
-import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 
 /**
  * Lists all students in the academy directory to the user.
@@ -21,7 +21,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(VersionedModel model) {
         requireNonNull(model);
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(MESSAGE_SUCCESS);

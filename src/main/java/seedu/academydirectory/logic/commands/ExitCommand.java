@@ -1,7 +1,5 @@
 package seedu.academydirectory.logic.commands;
 
-import java.util.Optional;
-
 import seedu.academydirectory.model.Model;
 
 /**

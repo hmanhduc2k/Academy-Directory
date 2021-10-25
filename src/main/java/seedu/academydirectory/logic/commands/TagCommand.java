@@ -11,7 +11,7 @@ import java.util.Set;
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
-import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 import seedu.academydirectory.model.tag.Tag;
 
@@ -57,7 +57,7 @@ public class TagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(VersionedModel model) throws CommandException {
         requireNonNull(model);
 
         List<Student> lastShownList = model.getFilteredStudentList();
@@ -73,7 +73,7 @@ public class TagCommand extends Command {
                 studentToEdit.getTelegram(), studentToEdit.getStudioRecord(),
                 studentToEdit.getAssessment(), editedTagSet);
         model.setStudent(studentToEdit, editedStudent);
-        model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+        model.updateFilteredStudentList(VersionedModel.PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, studentToEdit.getName()));
     }
 

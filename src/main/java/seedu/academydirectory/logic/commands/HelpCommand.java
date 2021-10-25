@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
-import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 
 /**
  * Format full help instructions for every command for display.
@@ -47,7 +47,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(VersionedModel model) throws CommandException {
         requireNonNull(model);
         if (this.commandWord == null || this.helpMessage == null) {
             throw new CommandException(Messages.MESSAGE_HELP_NOT_EXIST);

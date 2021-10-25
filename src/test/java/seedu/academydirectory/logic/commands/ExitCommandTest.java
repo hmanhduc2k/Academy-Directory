@@ -7,12 +7,12 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
+import seedu.academydirectory.model.VersionedModel;
 
 public class ExitCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private VersionedModel model = new ModelManager();
+    private VersionedModel expectedModel = new ModelManager();
 
     @Test
     public void execute_exit_success() {

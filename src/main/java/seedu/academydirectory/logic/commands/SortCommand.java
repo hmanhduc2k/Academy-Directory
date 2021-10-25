@@ -11,7 +11,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.academydirectory.model.AcademyDirectory;
-import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Assessment;
 import seedu.academydirectory.model.student.Name;
 import seedu.academydirectory.model.student.Participation;
@@ -72,7 +72,7 @@ public class SortCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(VersionedModel model) {
         requireNonNull(model);
         ObservableList<Student> students = model.getFilteredStudentList();
 

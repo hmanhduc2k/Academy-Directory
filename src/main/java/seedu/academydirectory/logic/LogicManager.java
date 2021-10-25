@@ -12,8 +12,8 @@ import seedu.academydirectory.logic.commands.CommandResult;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
 import seedu.academydirectory.logic.parser.AcademyDirectoryParser;
 import seedu.academydirectory.logic.parser.exceptions.ParseException;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ReadOnlyAcademyDirectory;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 import seedu.academydirectory.storage.Storage;
 
@@ -24,32 +24,38 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final VersionedModel model;
     private final Storage storage;
     private final AcademyDirectoryParser academyDirectoryParser;
 
     /**
-     * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
+     * Constructs a {@code LogicManager} with the given {@code Model} and {@code StorageManager}.
      */
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(VersionedModel model, Storage storage) {
         this.model = model;
         this.storage = storage;
         academyDirectoryParser = new AcademyDirectoryParser();
     }
 
+
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = academyDirectoryParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
 
         try {
             storage.saveAcademyDirectory(model.getAcademyDirectory());
+            if (commandResult.getCommitMessage().isPresent()) {
+                String commitMessage = commandResult.getCommitMessage().get();
+                model.commit(commitMessage);
+            }
+            storage.saveStageArea(model.getStageArea());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+
         return commandResult;
     }
 

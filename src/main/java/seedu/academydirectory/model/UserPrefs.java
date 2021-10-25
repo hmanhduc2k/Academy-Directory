@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path academyDirectoryFilePath = Paths.get("data" , "academydirectory.json");
+    private Path versionControlPath = Paths.get("data", "vc");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -57,6 +58,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     @Override
+    public Path getVersionControlPath() {
+        return versionControlPath;
+    }
+
+    public void setVersionControlPath(Path versionControlPath) {
+        requireNonNull(versionControlPath);
+        this.versionControlPath = versionControlPath;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -68,7 +79,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && academyDirectoryFilePath.equals(o.academyDirectoryFilePath);
+                && academyDirectoryFilePath.equals(o.academyDirectoryFilePath)
+                && versionControlPath.equals(o.versionControlPath);
     }
 
     @Override
@@ -81,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + academyDirectoryFilePath);
+        sb.append("\nVersion Control location : " + versionControlPath);
         return sb.toString();
     }
 

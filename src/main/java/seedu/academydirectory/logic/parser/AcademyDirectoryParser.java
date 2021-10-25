@@ -19,8 +19,10 @@ import seedu.academydirectory.logic.commands.FindCommand;
 import seedu.academydirectory.logic.commands.GetCommand;
 import seedu.academydirectory.logic.commands.GradeCommand;
 import seedu.academydirectory.logic.commands.HelpCommand;
+import seedu.academydirectory.logic.commands.HistoryCommand;
 import seedu.academydirectory.logic.commands.ListCommand;
 import seedu.academydirectory.logic.commands.ParticipationCommand;
+import seedu.academydirectory.logic.commands.RevertCommand;
 import seedu.academydirectory.logic.commands.ShowCommand;
 import seedu.academydirectory.logic.commands.SortCommand;
 import seedu.academydirectory.logic.commands.TagCommand;
@@ -106,6 +108,12 @@ public class AcademyDirectoryParser {
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
+
+        case RevertCommand.COMMAND_WORD:
+            return new RevertCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

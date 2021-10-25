@@ -5,11 +5,12 @@ import static seedu.academydirectory.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
 import seedu.academydirectory.logic.commands.exceptions.CommandException;
-import seedu.academydirectory.model.Model;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Attendance;
 import seedu.academydirectory.model.student.Student;
 import seedu.academydirectory.model.student.StudioRecord;
@@ -68,7 +69,7 @@ public class AttendanceCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(VersionedModel model) throws CommandException {
         List<Student> lastShownList = model.getFilteredStudentList();
 
         for (Index index : indexArrayList) {
@@ -88,7 +89,7 @@ public class AttendanceCommand extends Command {
             model.setStudent(studentToEdit, editedStudent);
         }
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        return new CommandResult(MESSAGE_UPDATE_ATTENDANCE_SUCCESS);
+        return new CommandResult(MESSAGE_UPDATE_ATTENDANCE_SUCCESS, Optional.of(MESSAGE_UPDATE_ATTENDANCE_SUCCESS));
 
     }
 

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import seedu.academydirectory.commons.core.Messages;
 import seedu.academydirectory.commons.core.index.Index;
 import seedu.academydirectory.model.AcademyDirectory;
-import seedu.academydirectory.model.Model;
 import seedu.academydirectory.model.ModelManager;
 import seedu.academydirectory.model.UserPrefs;
+import seedu.academydirectory.model.VersionedModel;
 import seedu.academydirectory.model.student.Student;
 import seedu.academydirectory.testutil.StudentBuilder;
 
@@ -35,7 +35,7 @@ public class AttendanceCommandTest {
     private static final ArrayList<Index> INDEX_ARRAYLIST_STUB_2 = new ArrayList<>();
     private static final boolean[] BOOLEAN_ARRAY_STUB = new boolean[12];
 
-    private Model model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
+    private VersionedModel model = new ModelManager(getTypicalAcademyDirectory(), new UserPrefs());
 
     @Test
     public void execute_updateAttendance_success() {
@@ -48,7 +48,8 @@ public class AttendanceCommandTest {
                 new AttendanceCommand(STUDIO_ATTENDANCE_STUB, STUDIO_SESSION_STUB, INDEX_ARRAYLIST_STUB);
         String expectedMessage = AttendanceCommand.MESSAGE_UPDATE_ATTENDANCE_SUCCESS;
 
-        Model expectedModel = new ModelManager(new AcademyDirectory(model.getAcademyDirectory()), new UserPrefs());
+        VersionedModel expectedModel = new ModelManager(
+                new AcademyDirectory(model.getAcademyDirectory()), new UserPrefs());
         expectedModel.setStudent(firstStudent, editedStudent);
         assertCommandSuccess(addAttendanceCommand, model, expectedMessage, expectedModel);
 

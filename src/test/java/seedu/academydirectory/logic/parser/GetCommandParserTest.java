@@ -1,8 +1,10 @@
 package seedu.academydirectory.logic.parser;
 
 import static seedu.academydirectory.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.academydirectory.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.academydirectory.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.academydirectory.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.academydirectory.testutil.TypicalStudents.getTypicalStudents;
 
 import java.util.stream.Stream;
 
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.academydirectory.logic.commands.GetCommand;
 import seedu.academydirectory.model.student.InformationWantedFunction;
+import seedu.academydirectory.model.student.Name;
 
 @SuppressWarnings("checkstyle:Regexp")
 public class GetCommandParserTest {
@@ -42,6 +45,19 @@ public class GetCommandParserTest {
         relevantPrefixes.forEach(prefix -> {
             String userInput = " " + prefix.getPrefix();
             GetCommand expectedCommand = new GetCommand(new InformationWantedFunction(prefix));
+            assertParseSuccess(parser, userInput, expectedCommand);
+        });
+    }
+
+    @Test
+    public void parse_validArgsWithName_returnsRetrieveCommand() {
+        Name name = getTypicalStudents().get(0).getName();
+
+        Stream<Prefix> relevantPrefixes = Stream.of(InformationWantedFunction.SUPPORTED_PREFIX.toArray(Prefix[]::new))
+                .parallel();
+        relevantPrefixes.forEach(prefix -> {
+            String userInput = " " + prefix.getPrefix() + " " + PREFIX_NAME + name.fullName;
+            GetCommand expectedCommand = new GetCommand(new InformationWantedFunction(prefix, name));
             assertParseSuccess(parser, userInput, expectedCommand);
         });
     }
