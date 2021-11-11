@@ -98,9 +98,7 @@ A GUI similar to the below image should appear in a few seconds. Note how the ap
 
    * **`list`** : Lists all contacts. For new users, the list will contain some sample data which users can delete.
 
-   * **`visualize`** : Visualize grades of students. For new users, an empty whisker box plot diagram will be shown. Otherwise, the above image will be shown.
-
-   * **`exit`** : Exits the app.
+   * **`visualize`** : Visualize grades of students. If there are some students in the list, then a box-and-whisker chart will be shown.
 
 5. You may refer to the [Features](#features) below for the set of features supported by Academy Directory and the details for each command. Alternatively, use `help` to get start and learn how to use our various commands.
 Notes:
@@ -113,7 +111,7 @@ for beginners.
 
 ## Preview
 
-Have you installed Academy Directory successfully? Let us now walk you through you how Academy Directory works, by starting off with a tutorial on how to interpret our User Interface design.
+Have you installed Academy Directory successfully? Let us now walk you through how Academy Directory works by starting off with a tutorial on how to interpret our User Interface design.
 
 ![Ui](images/ui-explained.png)
 
@@ -475,7 +473,7 @@ Provides in-depth assistance using Academy Directory with `help` command, either
 ##### Viewing general help
 Format: `help`
 
-* Type in `help` singularly displays a menu of all commands available to use as a list, how
+* Type in `help` singularly will display a menu of all commands available to use as a list, how
   to navigate each command, alongside the syntax for each command.
 
 ##### Viewing specific help
